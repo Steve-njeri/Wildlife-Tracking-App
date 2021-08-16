@@ -22,4 +22,16 @@ public class EndangeredAnimal {
     public String getAge() {
         return age;
     }
+
+    @Override
+    public boolean equals(Object otherEndangeredAnimal){
+        if (!(otherEndangeredAnimal instanceof EndangeredAnimal)) {
+            return false;
+        } else {
+            EndangeredAnimal newEndangeredAnimal = (EndangeredAnimal) otherEndangeredAnimal;
+            return this.getName().equals(newEndangeredAnimal.getName()) &&
+                    this.getHealth().equals(newEndangeredAnimal.getHealth()) &&
+                    this.getAge().equals(newEndangeredAnimal.getAge());
+        }
+    }
 }
