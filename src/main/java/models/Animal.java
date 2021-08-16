@@ -1,5 +1,7 @@
 package models;
 
+import org.sql2o.Connection;
+
 import java.util.List;
 
 public class Animal {
@@ -24,9 +26,20 @@ public class Animal {
         }
     }
 
-    public static List<Object> all() {
+    public static List<Animal> all() {
+        String sql = "SELECT * FROM animals";
+        try(Connection con = DB.sql2o.open()) {
+            return con.createQuery(sql).executeAndFetch(Animal.class);
+        }
     }
 
     public void save() {
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "INSERT INTO animals (name, animal_Id) VALUES (:name)";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("name", this.name)
+                    .executeUpdate()
+                    .getKey();
+        }
     }
 }
