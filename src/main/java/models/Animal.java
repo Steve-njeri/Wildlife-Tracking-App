@@ -35,11 +35,25 @@ public class Animal {
 
     public void save() {
         try(Connection con = DB.sql2o.open()) {
-            String sql = "INSERT INTO animals (name, animal_Id) VALUES (:name)";
+            String sql = "INSERT INTO animals (name) VALUES (:name)";
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("name", this.name)
                     .executeUpdate()
                     .getKey();
+        }
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public static Animal find(int id) {
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM animals where id=:id";
+            Animal animal = con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Animal.class);
+            return animal;
         }
     }
 }
