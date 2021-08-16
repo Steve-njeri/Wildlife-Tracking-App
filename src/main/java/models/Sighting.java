@@ -1,4 +1,14 @@
 package models;
 
 public class Sighting {
+    private int animal_id;
+    private String location;
+    private String rangerName;
+    private int id;
+
+    public Sighting(int animal_id, String location, String rangerName)  {
+        this.animal_id = animal_id;
+        this.location = location;
+        this.rangerName = rangerName;
+    }
 }
