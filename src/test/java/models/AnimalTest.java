@@ -18,4 +18,11 @@ public class AnimalTest {
         assertEquals("Leopard", animal.getName());
     }
 
+    @Test
+    public void equals_returnsTrueIfAnimalsAreSame_true() {
+        Animal animal = new Animal("Leopard");
+        Animal anotherAnimal = new Animal("Leopard");
+        assertTrue(animal.equals(anotherAnimal));
+    }
+
 }

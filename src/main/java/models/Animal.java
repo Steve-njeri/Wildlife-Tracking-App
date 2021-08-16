@@ -11,4 +11,14 @@ public class Animal {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object otherAnimal){
+        if (!(otherAnimal instanceof Animal)) {
+            return false;
+        } else {
+            Animal animal = (Animal) otherAnimal;
+            return this.getName().equals(animal.getName());
+        }
+    }
 }
