@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 public class Animal {
     private int id;
     private String name;
@@ -20,5 +22,11 @@ public class Animal {
             Animal animal = (Animal) otherAnimal;
             return this.getName().equals(animal.getName());
         }
+    }
+
+    public static List<Object> all() {
+    }
+
+    public void save() {
     }
 }

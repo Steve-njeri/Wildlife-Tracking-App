@@ -25,4 +25,11 @@ public class AnimalTest {
         assertTrue(animal.equals(anotherAnimal));
     }
 
+    @Test
+    public void save_returnsTrueIfDescriptionsAreTheSame() {
+        Animal animal = new Animal("Leopard");
+        animal.save();
+        assertEquals(Animal.all().get(0), animal);
+    }
+
 }
