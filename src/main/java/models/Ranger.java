@@ -73,13 +73,13 @@ public class Ranger {
         return id;
     }
 
-    public static Ranger find(int id) {
-        try(Connection con = DB.sql2o.open()) {
-            String sql = "SELECT * FROM rangers where id=:id";
-            Ranger ranger = con.createQuery(sql)
+    public static Ranger find(int id){
+        try (Connection con = DB.sql2o.open()) {
+            return con.createQuery("SELECT * FROM rangers WHERE id=:id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Ranger.class);
-            return ranger;
         }
+
     }
+
 }
