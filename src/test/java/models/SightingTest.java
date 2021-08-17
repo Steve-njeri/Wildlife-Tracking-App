@@ -13,7 +13,7 @@ public class SightingTest {
     @Test
     public void Sighting_instantiatesCorrectly_true(){
         Sighting sighting = new Sighting(1,"zone A","John");
-        assertEquals(true, sighting instanceof Sighting);
+        assertTrue(true);
     }
 
     @Test
@@ -38,14 +38,14 @@ public class SightingTest {
     public void equals_returnsTrueIfAllPropertiesAreTheSame() {
         Sighting sighting = new Sighting(1,"zone A","John");
         Sighting secondSighting = new Sighting(1,"zone A","John");
-        assertTrue(sighting.equals(secondSighting));
+        assertEquals(sighting, secondSighting);
     }
 
     @Test
     public void save_insertsObjectIntoDatabase() {
         Sighting sighting = new Sighting(1,"zone A","John");
         sighting.save();
-        assertTrue(Sighting.all().get(0).equals(sighting));
+        assertEquals(Sighting.all().get(0), sighting);
     }
 
     @Test
@@ -62,12 +62,12 @@ public class SightingTest {
         sighting.save();
         Sighting secondSighting = new Sighting(1,"zone B","James");
         sighting.save();
-        assertEquals(true,Sighting.all().get(0).equals(sighting));
-        assertEquals(true, Sighting.all().get(1).equals(secondSighting));
+        assertEquals(Sighting.all().get(0), sighting);
+        assertEquals(Sighting.all().get(1), secondSighting);
     }
 
     @Test
-    public void find_returnsMonsterWithSameId_secondMonster() {
+    public void find_returnsMonsterWithSameId_secondSighting() {
         Sighting sighting = new Sighting(1,"zone A","John");
         sighting.save();
         Sighting secondSighting = new Sighting(1,"zone B","James");

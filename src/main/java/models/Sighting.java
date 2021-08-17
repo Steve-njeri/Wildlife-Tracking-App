@@ -42,7 +42,7 @@ public class Sighting {
 
     public static List<Sighting> all() {
         try(Connection con = DB.sql2o.open()) {
-            String sql = "SELECT * FROM sightings_;";
+            String sql = "SELECT * FROM sightings;";
             return con.createQuery(sql)
                     .throwOnMappingFailure(false)
                     .executeAndFetch(Sighting.class);
@@ -52,12 +52,11 @@ public class Sighting {
 
     public void save() {
         try(Connection con = DB.sql2o.open()) {
-            String sql = "INSERT INTO sightings_ (animal_id, location, rangerName) VALUES (:animal_id, :location, :rangerName)";
+            String sql = "INSERT INTO sightings (animal_id, location, rangerName) VALUES (:animal_id, :location, :rangerName)";
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("animal_id", this.animal_id)
                     .addParameter("location", this.location)
                     .addParameter("rangerName", this.rangerName)
-                    .throwOnMappingFailure(false)
                     .executeUpdate()
                     .getKey();
         }
@@ -69,7 +68,7 @@ public class Sighting {
 
     public static Sighting find(int id) {
         try(Connection con = DB.sql2o.open()) {
-            String sql = "SELECT * FROM sightings_ WHERE id=:id;";
+            String sql = "SELECT * FROM sightings WHERE id=:id;";
             Sighting sighting = con.createQuery(sql)
                     .addParameter("id", id)
                     .executeAndFetchFirst(Sighting.class);
