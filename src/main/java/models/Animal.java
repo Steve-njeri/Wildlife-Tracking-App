@@ -4,16 +4,27 @@ import org.sql2o.Connection;
 
 import java.util.List;
 
-public class Animal {
+public class Animal implements DatabaseManagement {
     private int id;
     private String name;
+    public  String type;
+    public static final String ANIMAL_TYPE = "animal";
 
     public Animal(String name) {
         this.name = name;
+        this.type = ANIMAL_TYPE;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public static String getAnimalType() {
+        return ANIMAL_TYPE;
     }
 
     @Override
@@ -43,6 +54,16 @@ public class Animal {
         }
     }
 
+    @Override
+    public void delete() {
+        try (Connection conn = DB.sql2o.open()){
+            String sql = "DELETE FROM animals WHERE id=:id;";
+            conn.createQuery(sql)
+                    .addParameter("id",id)
+                    .executeUpdate();
+        }
+    }
+
     public int getId(){
         return id;
     }
@@ -56,4 +77,17 @@ public class Animal {
             return animal;
         }
     }
+
+    @Override
+    public void update(String name) {
+        String sql = "UPDATE animals SET name=:name WHERE id=:id";
+        try (Connection conn = DB.sql2o.open()){
+            conn.createQuery(sql)
+                    .addParameter("name",name)
+                    .addParameter("id",id)
+                    .executeUpdate();
+        }
+    }
+
+
 }
