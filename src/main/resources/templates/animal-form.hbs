@@ -1,14 +1,21 @@
-{{#partial "content"}}
 
-    <section class="display-form">
-        <form class="display-form" action="/animals" method="post">
-            <div class="form-group">
-                <label for="name">Animal Name:</label><br>
-                <input type="text" class="form-control" name="animalName" id="animalName" placeholder="What is the animal name?">
-            </div>
-            <br>
-            <button type="submit" class="btns btn-danger btn-lg my-2 my-sm-0 mt-2">Submit</button>
-        </form>
+{{#partial "content"}}
+    <section class="display-part">
+        <div class="container">
+            <form action="/animals" method="post" class="display-form">
+                <div id="non-endangeredA">
+                    <div class="form-group">
+                        <label for="name">Animal Name:</label><br>
+                        <input type="text" class="form-control" name="animalName" id="animalName" placeholder="What is the animal name?">
+                    </div>
+                </div>
+                <div class="text-center mb-3">
+                    <button type="submit" class="btn btn-light btn-block locationSubmit">Submit</button>
+                </div>
+            </form>
+        </div>
     </section>
+
 {{/partial}}
+
 {{> layout.hbs}}

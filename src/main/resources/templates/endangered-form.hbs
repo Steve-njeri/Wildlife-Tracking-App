@@ -1,0 +1,40 @@
+{{#partial "content"}}
+    <section class="display-part">
+        <div class="container">
+            <form action="/endangered" method="post" class="display-form">
+                <div id="endangeredAn">
+                    <div class="form-group">
+                        <label for="endangeredAnimalName">Name of animal</label>
+                        <input type="text" class="form-control" name="endangeredAnimalName" id="endangeredAnimalName" placeholder="What is the animal name?">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="endangeredAnimalAge">Estimated Age</label><br>
+                        <select class="custom-select" id="endangeredAnimalAge" name="endangeredAnimalAge">
+                            <option selected>Choose...</option>
+                            <option name="endangeredAnimalAge" value="Newborn">Newborn</option>
+                            <option name="endangeredAnimalAge" value="Young">Young</option>
+                            <option name="endangeredAnimalAge" value="Adult">Adult</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="endangeredAnimalHealth">Health of Animal</label><br>
+                        <select class="custom-select" id="endangeredAnimalHealth" name="endangeredAnimalHealth">
+                            <option selected>Choose...</option>
+                            <option name="endangeredAnimalHealth" value="Healthy">Healthy</option>
+                            <option name="endangeredAnimalHealth" value="Ill">Ill</option>
+                            <option name="endangeredAnimalHealth" value="Okay">Okay</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center mb-3">
+                    <button type="submit" class="btn btn-light btn-block locationSubmit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+{{/partial}}
+
+{{> layout.hbs}}
