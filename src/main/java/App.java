@@ -1,4 +1,4 @@
-import models.Animal;
+import models.*;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -40,5 +40,39 @@ public class App {
             return new ModelAndView(model, "animals.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //deleting animal object
+        get("/animals/:id/delete", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            Animal animal = Animal.find(Integer.parseInt(request.params(":id")));
+            animal.delete();
+            model.put("animals", Animal.all());
+            return new ModelAndView(model,"animals.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("sightings/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("animals", Animal.all());
+            model.put("locations", Location.all());
+            model.put("endangeredAnimals", EndangeredAnimal.all());
+            model.put("rangers", Ranger.all());
+            return new ModelAndView(model, "sighting-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/sightings", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            int animal_id = Integer.parseInt(request.queryParams("animal_id"));
+            String rangerName = request.queryParams("rangerName");
+            String location = request.queryParams("location");
+            Sighting sighting = new Sighting(animal_id,rangerName,location);
+            sighting.save();
+            model.put("sightings", Sighting.all());
+            return new ModelAndView(model, "sightings.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/sightings", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("sightings", Sighting.all());
+            return new ModelAndView(model, "sightings.hbs");
+        }, new HandlebarsTemplateEngine());
     }
 }

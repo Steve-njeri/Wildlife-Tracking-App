@@ -1,16 +1,13 @@
 
-.display-form {
-    min-height:100vh;
-    padding:5% 9%;
-    padding-top: 15.5rem;
-}
-
+.display-form,
+.display-sightings,
 .display-animals {
     min-height:100vh;
     padding:0 9%;
     padding-top: 15.5rem;
 }
 
+.sighting-form,
 .display-part {
   position: relative;
   z-index: 3;
