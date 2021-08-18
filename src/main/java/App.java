@@ -49,6 +49,7 @@ public class App {
             return new ModelAndView(model,"animals.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //retrieving sighting form
         get("sightings/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("animals", Animal.all());
@@ -58,6 +59,7 @@ public class App {
             return new ModelAndView(model, "sighting-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //posting a sighting form details
         post("/sightings", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             int animal_id = Integer.parseInt(request.queryParams("animal_id"));
@@ -69,10 +71,34 @@ public class App {
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //retrieving all sightings
         get("/sightings", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("sightings", Sighting.all());
             return new ModelAndView(model, "sightings.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("rangers/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "ranger-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/rangers", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            int badge_number=Integer.parseInt(request.queryParams("badge_number"));
+            int phone_number=Integer.parseInt(request.queryParams("phone_number"));
+            String email=request.queryParams("email");
+            Ranger ranger = new Ranger(name, badge_number, phone_number, email);
+            ranger.save();
+            model.put("rangers", Ranger.all());
+            return new ModelAndView(model, "rangers.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/rangers", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("rangers", Ranger.all());
+            return new ModelAndView(model, "rangers.hbs");
         }, new HandlebarsTemplateEngine());
     }
 }

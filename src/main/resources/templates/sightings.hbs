@@ -1,22 +1,37 @@
 {{#partial "content"}}
-    <h1>All sightings</h1>
-    <div class="container">
-    {{#each sightings}}
 
-            <p class="font-weight-bold indigo-text py-2">Sighted By: {{animal_id}}</p>
-            <h6 class="font-weight-bold indigo-text py-2">Location: {{rangerId}}</h6>
-            <h6 class="font-weight-bold indigo-text py-2">Time: {{locationId}}</h6>
-
-
-            <form action="/sightings/{{id}}/delete" method="post">
-                <a href="/sightings/{{id}}/delete"><button class="btn btn-danger">Delete sighting</button></a>
-            </form>
+    <section class="display-sightings">
+        <h2>LIST OF SIGHTINGS</h2>
+        <div class="container">
+        {{#if sightings}}
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <th>Ranger Name</th>
+                <th>Animal Name</th>
+                <th>Location Name</th>
+                </thead>
+                <tbody>
+                {{#each sightings}}
+                    <tr>
+                        <td>{{rangerName}}</td>
+                        <td>{{animal_id}}</td>
+                        <td>{{location}}</td>
+                    </tr>
+                {{/each}}
+            </table>
         </div>
-    {{/each}}
-    </div>
-    </div>
-    <div class="row text-center">
-        <a href="/sightings/new"><button class="btn btn-dark-green">Add New Sighting</button></a>
-    </div>
+        {{else}}
+                <ul class="sighting">
+                    <li id="sightingList">
+                        <a href="#" id="sightingListLink">
+                            <h2>Sorry</h2>
+                            <p>No Sightings Available</p>
+                        </a>
+                    </li>
+                </ul>
+        {{/if}}
+    </section>
+
 {{/partial}}
+
 {{> layout.hbs}}
