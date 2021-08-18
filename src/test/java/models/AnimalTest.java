@@ -63,6 +63,4 @@ public class AnimalTest {
         assertEquals(Animal.find(secondAnimal.getId()), secondAnimal);
     }
 
-
-
 }

@@ -1,0 +1,15 @@
+{{#partial "content"}}
+    <h1>Add a Non-Endangered Animal</h1>
+
+    <p>Add animal here:</p>
+
+    <form class="display-form" action="/animals" method="post">
+        <div class="form-group">
+            <label for="name">Animal Name</label>
+            <input type="text" class="form-control" name="commonAnimalName" id="commonAnimalName" placeholder="What is the animal type?">
+        </div>
+        <br>
+        <button type="submit" class="btns btn-danger my-2 my-sm-0 mt-2">Submit</button>
+    </form>
+{{/partial}}
+{{> layout.hbs}}
