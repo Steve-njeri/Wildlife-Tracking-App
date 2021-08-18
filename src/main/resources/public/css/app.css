@@ -1,17 +1,11 @@
 
-
-
-.display-rangers,
-.display-sightings,
-.display-form,
-.display-animals {
+.display-part {
     min-height:100vh;
     padding:0 9%;
     padding-top: 15.5rem;
 }
 
-.sighting-form,
-.animal-form {
+.display-form {
   position: relative;
   z-index: 3;
   width: 500px;

@@ -78,11 +78,13 @@ public class App {
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //retrieving rangers form
         get("rangers/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "ranger-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //posting a ranger form details
         post("/rangers", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
@@ -95,10 +97,31 @@ public class App {
             return new ModelAndView(model, "rangers.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //retrieving all rangers
         get("/rangers", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("rangers", Ranger.all());
             return new ModelAndView(model, "rangers.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("locations/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "location-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/locations", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            Location location = new Location(name);
+            location.save();
+            model.put("locations", Location.all());
+            return new ModelAndView(model, "locations.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/locations", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("locations", Location.all());
+            return new ModelAndView(model, "locations.hbs");
         }, new HandlebarsTemplateEngine());
     }
 }
