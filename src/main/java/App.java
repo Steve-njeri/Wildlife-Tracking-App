@@ -36,10 +36,11 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             Animal animal = new Animal(name);
+            System.out.println(name);
             animal.save();
-            model.put("animals", Animal.all());
-            return new ModelAndView(model, "animals.hbs");
-        }, new HandlebarsTemplateEngine());
+            response.redirect("/animals");
+            return null;
+        });
 
         //retrieving all animals
         get("/animals", (request, response) -> {
@@ -62,7 +63,7 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             model.put("animals", Animal.all());
             model.put("locations", Location.all());
-            model.put("endangeredAnimals", EndangeredAnimal.all());
+            model.put("endangered", EndangeredAnimal.all());
             model.put("rangers", Ranger.all());
             return new ModelAndView(model, "sighting-form.hbs");
         }, new HandlebarsTemplateEngine());
@@ -75,6 +76,9 @@ public class App {
             String location = request.queryParams("location");
             Sighting sighting = new Sighting(animal_id,rangerName,location);
             sighting.save();
+            System.out.println(animal_id);
+            System.out.println(rangerName);
+            System.out.println(location);
             model.put("sightings", Sighting.all());
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());

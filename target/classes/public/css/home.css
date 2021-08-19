@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap');
+
+:root{
+--green:#2C5F2D;
+--white:#fff;
+--red:#FF6347;
+--gradient:linear-gradient(90deg, var(--green), var(--green));
+
+}
+
+section {
+    min-height:100vh;
+    padding:0 9%;
+    padding-top: 7.5rem;
+}
+
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:url(../images/) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.home .image img {
+    width:40vw;
+    animation: float 3s linear infinite;
+}
+
+@keyframes float{
+    0%, 100%{
+        transform: translateY(0rem);
+    }
+
+    50% {
+          transform: translateY(-3.5rem);
+    }
+}
+
+.home .content h3{
+    font-size: 5.5rem;
+    color:#333;
+    text-transform: uppercase;
+}
+
+.home .content h3 span{
+    color:var(--red)
+}
+
+.btn{
+    display:inline-block;
+    margin-top: 1rem;
+    padding: .8rem 3rem;
+    border-radius: 5rem;
+    background:var(--gradient);
+    font-size: 1.7rem;
+    color:#fff;
+    cursor:pointer;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    transition: all 3s linear;
+}
+
+.btn:hover {
+    transform: scale 1.1;
+}
+
+@media (max-width: 991px){
+   section {
+       min-height:100vh;
+       padding:0 3%;
+       padding-top: 7.5rem;
+   }
+}

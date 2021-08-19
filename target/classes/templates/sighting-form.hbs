@@ -1,6 +1,6 @@
 {{#partial "content"}}
     <section class="display-part">
-        <form action="/sightings" method="POST" class="display-form">
+        <form action="/sightings" method="post" class="display-form">
             <div class="card">
                 <div class="card-body mx-4">
                     <div class="text-center">
@@ -8,7 +8,7 @@
                     </div>
                     <div class="form-group">
                         <label for="animals">Animal</label><br>
-                        <select class="form-control" name="animal_id" id="animal">
+                        <select class="form-control" name="animal" id="animal">
                             <option value="null">---Choose animal---</option>
                             <option value="leopard">Leopard</option>
                             <option value="lion">Lion</option>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group">
                         <label for="rangers">Ranger</label><br>
-                        <select class="form-control" name="rangerName" id="ranger">
+                        <select class="form-control" name="ranger" id="ranger">
                             <option value="null">---options---</option>
                             <option value="stephen">Stephen</option>
                             <option value="mary">Mary</option>

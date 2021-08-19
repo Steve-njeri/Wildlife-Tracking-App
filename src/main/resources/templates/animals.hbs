@@ -2,33 +2,32 @@
     <section class="display-part">
         <div class="add-animals">
             <a href="/animals/new"><button class="btn btn-unique">Add New Non-Endangered animal</button></a>
-            <a href="/endangered/new"><button class="btn btn-unique">Add New Endangered animal</button></a>
+            <a href="/endangered"><button class="btns btn-danger">View Endangered animals</button></a>
         </div>
         <hr>
         <br>
-        <h1>List of animals</h1>
-        <div class="container-fluid">
-            <div class="row">
-                {{#each animals}}
-                    <div class="card-body">
-                        <h4 class="card-title"><strong>{{name}}</strong></h4>
-                        <a href="/animals/{{id}}/delete"><button class="btns btn-danger">Delete animal</button></a>
-                    </div>
-                {{/each}}
+        <h1>List of Non-Endangered Animals</h1>
+        <div class="row container">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <th>Animal name</th>
+                    <th>Delete</th>
+                    </thead>
+                    <tbody>
+                    {{#each animals}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td><a class="text-danger" href="/animals/{{id}}/delete"><span class="material-icons-outlined">
+                                    delete
+                                </span></a></td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
             </div>
-            <div class="row">
-                {{#each endangeredAnimals}}
-                    <div class="card-body">
-                        <h4 class="card-title"><strong>{{name}}</strong></h4>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Type: {{type}}</li>
-                            <li class="list-group-item">Age: {{age}}</li>
-                            <li class="list-group-item">Health Status: {{health}}</li>
-                        </ul>
-                        <a href="/animals/{{id}}/delete"><button class="btns btn-danger">Delete animal</button></a>
-                    </div>
-                {{/each}}
-            </div>
+            <div class="col-md-1"></div>
         </div>
     </section>
 

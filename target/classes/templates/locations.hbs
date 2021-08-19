@@ -1,0 +1,28 @@
+{{#partial "content"}}
+    <section class="display-part">
+        <div class="add-ranger">
+            <a href="/locations/new"><button class="btn btn-unique">Add New Location</button></a>
+        </div>
+        <hr>
+        <br>
+        <h2>LIST OF LOCATIONS</h2>
+        <div class="container-fluid">
+        {{#if location}}
+            <div class="row">
+                    {{#each location}}
+                        <div class="card-body">
+                            <p class="card-text">{{name}}</p>
+                            <a href="/locations/{{id}}/update" class="card-link">Edit Location</a>
+                            <a href="/locations/{{id}}/delete" class="card-link">Delete Location</a>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        {{else}}
+
+        {{/if}}
+    </section>
+
+{{/partial}}
+
+{{> layout.hbs}}
