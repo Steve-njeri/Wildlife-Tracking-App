@@ -1,13 +1,16 @@
 package models;
 
 import org.sql2o.Connection;
-
+import java.security.Timestamp;
+import org.sql2o.Sql2oException;
 import java.util.List;
+import java.util.Objects;
 
 public class Sighting {
     private int animal_id;
     private String location;
-    private String rangerName;
+    public String rangerName;
+    private  Timestamp lastSeen;
     private int id;
 
     public Sighting(int animal_id, String location, String rangerName)  {
@@ -20,6 +23,10 @@ public class Sighting {
         return animal_id;
     }
 
+    public Timestamp getLastSeen() {
+        return lastSeen;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -28,23 +35,33 @@ public class Sighting {
         return rangerName;
     }
 
-    @Override
-    public boolean equals (Object otherSighting){
-        if (!(otherSighting instanceof Sighting)){
-            return false;
-        }else{
-            Sighting sighting =(Sighting) otherSighting;
-            return this.getAnimal_id()==sighting.getAnimal_id() &&
-                    this.getLocation().equals(sighting.getLocation()) &&
-                    this.getRangerName().equals(sighting.getRangerName());
-        }
+    public int getId(){
+        return id;
     }
 
-    public static List<Sighting> all() {
+
+    @Override
+    public boolean equals(Object otherSighting) {
+        if (this == otherSighting) return true;
+        if (otherSighting == null || getClass() != otherSighting.getClass()) return false;
+            Sighting sighting =(Sighting) otherSighting;
+            return id == sighting.id &&
+                    animal_id == sighting.animal_id &&
+                    Objects.equals(rangerName, sighting.rangerName) &&
+                    Objects.equals(lastSeen, sighting.lastSeen) &&
+                    Objects.equals(location, sighting.location);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, rangerName, lastSeen, animal_id, location);
+    }
+
+    public static List<Sighting> getAll() {
         try(Connection con = DB.sql2o.open()) {
             String sql = "SELECT * FROM sightings;";
             return con.createQuery(sql)
-                    .throwOnMappingFailure(false)
                     .executeAndFetch(Sighting.class);
         }
     }
@@ -52,25 +69,40 @@ public class Sighting {
 
     public void save() {
         try(Connection con = DB.sql2o.open()) {
-            String sql = "INSERT INTO sightings (animal_id, location, rangerName) VALUES (:animal_id, :location, :rangerName)";
+            String sql = "INSERT INTO sightings (animal_id, location, rangerName, lastSeen) VALUES (:animal_id, :location, :rangerName, now());";
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("animal_id", this.animal_id)
                     .addParameter("location", this.location)
                     .addParameter("rangerName", this.rangerName)
                     .executeUpdate()
                     .getKey();
+        }catch (Sql2oException err){
+            System.out.println("error::: "+ err);
         }
     }
 
-    public int getId(){
-        return id;
-    }
-
-    public static Sighting find(int id){
+    public static Sighting findById(int id){
         try (Connection con = DB.sql2o.open()) {
-            return con.createQuery("SELECT * FROM sightings WHERE id=:id")
+            String sql = "SELECT * FROM sightings WHERE id = :id";
+            return con.createQuery(sql)
                     .addParameter("id", id)
                     .executeAndFetchFirst(Sighting.class);
+        }
+    }
+
+    public static void clearAll(){
+        try(Connection connection= DB.sql2o.open()){
+            String sql ="DELETE FROM sightings *";
+            connection.createQuery(sql).executeUpdate();
+        }
+    }
+
+    public static void delete(int id){
+        try(Connection connection= DB.sql2o.open()){
+            String sql = "DELETE FROM sightings  WHERE id = :id;";
+            connection.createQuery(sql).addParameter("id",id).executeUpdate();
+        } catch(Sql2oException err){
+            System.out.println("error::: "+ err);
         }
     }
 }

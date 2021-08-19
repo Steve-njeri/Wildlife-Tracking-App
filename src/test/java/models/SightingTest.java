@@ -5,6 +5,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.util.Date;
+
 public class SightingTest {
 
     @Rule
@@ -42,44 +46,44 @@ public class SightingTest {
     }
 
     @Test
-    public void Sighting_instantiatesWithAnId() {
+    public void save_instanceOfLastSeen_true(){
         Sighting sighting = new Sighting(1,"zone A","John");
         sighting.save();
-        assertTrue(sighting.getId()>0);
-    }
-
-    @Test
-    public void save_insertsObjectIntoDatabase() {
-        Sighting sighting = new Sighting(1,"zone A","John");
-        sighting.save();
-        assertEquals(Sighting.all().get(0), sighting);
+        Timestamp timeSighting = Sighting.findById(sighting.getId()).getLastSeen();
+        long rightNow = new Date().getTime();
+        assertEquals(DateFormat.getDateInstance().format(rightNow), DateFormat.getDateInstance().format(timeSighting));
     }
 
     @Test
     public void save_assignsIdToObject() {
         Sighting sighting = new Sighting(1,"zone A","John");
         sighting.save();
-        Sighting savedSighting = Sighting.all().get(0);
+        Sighting savedSighting = Sighting.getAll().get(0);
         assertEquals(sighting.getId(), savedSighting.getId());
     }
 
-//    @Test
-//    public void all_returnsAllInstancesOfSighting_true() {
-//        Sighting sighting = new Sighting(1,"zone A","John");
-//        sighting.save();
-//        Sighting secondSighting = new Sighting(2,"zone B","James");
-//        sighting.save();
-//        assertEquals(Sighting.all().get(0), sighting);
-//        assertEquals(Sighting.all().get(1), secondSighting);
-//    }
-//
-//    @Test
-//    public void find_returnsMonsterWithSameId_secondSighting() {
-//        Sighting sighting = new Sighting(1,"zone A","John");
-//        sighting.save();
-//        Sighting secondSighting = new Sighting(2,"zone B","James");
-//        sighting.save();
-//        assertEquals(Sighting.find(secondSighting.getId()), secondSighting);
-//    }
+    @Test
+    public void sighted_instantiateSave_true(){
+        Sighting sighting = new Sighting(1,"zone A","John");
+        sighting.save();
+        assertEquals(Sighting.getAll().get(0).getId(),sighting.getId());
+    }
+
+    @Test
+    public void sighted_instantiateClearAll_true(){
+        Sighting sighting = new Sighting(1,"zone A","John");
+        sighting.save();
+        Sighting.clearAll();
+        assertEquals(0,Sighting.getAll().size());
+    }
+
+    @Test
+    public void sighted_instantiateDelete_true(){
+        Sighting sighting = new Sighting(1,"zone A","John");
+        sighting.save();
+        Sighting.delete(sighting.getId());
+        assertEquals(0,Sighting.getAll().size());
+    }
+
 
 }

@@ -6,21 +6,32 @@
         <hr>
         <br>
         <h2>LIST OF LOCATIONS</h2>
-        <div class="container-fluid">
-        {{#if location}}
-            <div class="row">
-                    {{#each location}}
-                        <div class="card-body">
-                            <p class="card-text">{{name}}</p>
-                            <a href="/locations/{{id}}/update" class="card-link">Edit Location</a>
-                            <a href="/locations/{{id}}/delete" class="card-link">Delete Location</a>
-                        </div>
+        <div class="row container">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <th>Locations</th>
+                    <th>Edit location</th>
+                    <th>Delete location</th>
+                    </thead>
+                    <tbody>
+                    {{#each locations}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td><a class="text-danger" href="/locations/{{id}}/update"><span class="material-icons-outlined">
+                                    Edit
+                                </span></a></td>
+                            <td><a class="text-danger" href="/locations/{{id}}/delete"><span class="material-icons-outlined">
+                                    Delete
+                                </span></a></td>
+                        </tr>
                     {{/each}}
-                </div>
+                    </tbody>
+                </table>
             </div>
-        {{else}}
-
-        {{/if}}
+            <div class="col-md-1"></div>
+        </div>
     </section>
 
 {{/partial}}

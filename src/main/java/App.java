@@ -61,10 +61,6 @@ public class App {
         //retrieving sighting form
         get("sightings/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            model.put("animals", Animal.all());
-            model.put("locations", Location.all());
-            model.put("endangered", EndangeredAnimal.all());
-            model.put("rangers", Ranger.all());
             return new ModelAndView(model, "sighting-form.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -76,17 +72,14 @@ public class App {
             String location = request.queryParams("location");
             Sighting sighting = new Sighting(animal_id,rangerName,location);
             sighting.save();
-            System.out.println(animal_id);
-            System.out.println(rangerName);
-            System.out.println(location);
-            model.put("sightings", Sighting.all());
+            model.put("sightings", Sighting.getAll());
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
 
         //retrieving all sightings
         get("/sightings", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            model.put("sightings", Sighting.all());
+            model.put("sightings", Sighting.getAll());
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -116,6 +109,7 @@ public class App {
             return new ModelAndView(model, "rangers.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //retrieving new location form
         get("locations/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "location-form.hbs");
@@ -134,6 +128,14 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             model.put("locations", Location.all());
             return new ModelAndView(model, "locations.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/locations/:id/delete", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            Location location = Location.find(Integer.parseInt(request.params(":id")));
+            location.delete();
+            model.put("locations", Location.all());
+            return new ModelAndView(model,"locations.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("endangered/new", (request, response) -> {

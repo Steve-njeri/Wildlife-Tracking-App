@@ -70,4 +70,19 @@ public class LocationTest {
         assertEquals(Location.find(secondLocation.getId()), secondLocation);
     }
 
+    @Test
+    public void update_updateLocation_true(){
+        Location location = new Location("Zone C");
+        location.save();
+        location.update("Zone C");
+    }
+    @Test
+    public void delete_deletesLocation_true(){
+        Location location = new Location("Zone A");
+        location.save();
+        int locationId = location.getId();
+        location.delete();
+        assertEquals(null, Location.find(locationId));
+    }
+
 }
