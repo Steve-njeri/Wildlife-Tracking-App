@@ -66,15 +66,11 @@ public class Sighting {
         return id;
     }
 
-    public static Sighting find(int id) {
-        try(Connection con = DB.sql2o.open()) {
-            String sql = "SELECT * FROM sightings WHERE id=:id;";
-            Sighting sighting = con.createQuery(sql)
+    public static Sighting find(int id){
+        try (Connection con = DB.sql2o.open()) {
+            return con.createQuery("SELECT * FROM sightings WHERE id=:id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Sighting.class);
-            return sighting;
-        } catch (IndexOutOfBoundsException exception) {
-            return null;
         }
     }
 }
