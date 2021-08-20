@@ -3,6 +3,7 @@ import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -71,8 +72,11 @@ public class App {
             String rangerName = request.queryParams("rangerName");
             String location = request.queryParams("location");
             Sighting sighting = new Sighting(animal_id,rangerName,location);
+            System.out.println(animal_id);
+            System.out.println(rangerName);
+            System.out.println(location);
             sighting.save();
-            model.put("sightings", Sighting.getAll());
+            model.put("sightings", sighting);
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
 

@@ -1,7 +1,6 @@
 package models;
 
 import org.sql2o.Connection;
-import java.security.Timestamp;
 import org.sql2o.Sql2oException;
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +9,6 @@ public class Sighting {
     private int animal_id;
     private String location;
     public String rangerName;
-    private  Timestamp lastSeen;
     private int id;
 
     public Sighting(int animal_id, String location, String rangerName)  {
@@ -21,10 +19,6 @@ public class Sighting {
 
     public int getAnimal_id() {
         return animal_id;
-    }
-
-    public Timestamp getLastSeen() {
-        return lastSeen;
     }
 
     public String getLocation() {
@@ -42,21 +36,16 @@ public class Sighting {
 
     @Override
     public boolean equals(Object otherSighting) {
-        if (this == otherSighting) return true;
-        if (otherSighting == null || getClass() != otherSighting.getClass()) return false;
-            Sighting sighting =(Sighting) otherSighting;
-            return id == sighting.id &&
-                    animal_id == sighting.animal_id &&
-                    Objects.equals(rangerName, sighting.rangerName) &&
-                    Objects.equals(lastSeen, sighting.lastSeen) &&
-                    Objects.equals(location, sighting.location);
-
+        if (!(otherSighting instanceof Sighting )) {
+            return false;
+        } else {
+            Sighting newSighting = (Sighting) otherSighting;
+            return this.getAnimal_id() == (newSighting.getAnimal_id()) &&
+                    this.getRangerName().equals(newSighting.getRangerName()) &&
+                    this.getLocation().equals(newSighting.getLocation());
+        }
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, rangerName, lastSeen, animal_id, location);
-    }
 
     public static List<Sighting> getAll() {
         try(Connection con = DB.sql2o.open()) {
@@ -69,7 +58,7 @@ public class Sighting {
 
     public void save() {
         try(Connection con = DB.sql2o.open()) {
-            String sql = "INSERT INTO sightings (animal_id, location, rangerName, lastSeen) VALUES (:animal_id, :location, :rangerName, now());";
+            String sql = "INSERT INTO sightings (animal_id, location, rangerName) VALUES (:animal_id, :location, :rangerName);";
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("animal_id", this.animal_id)
                     .addParameter("location", this.location)

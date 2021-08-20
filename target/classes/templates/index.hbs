@@ -11,6 +11,36 @@
         </div>
 
     </section>
+    <section>
+        <h2>TRACKED ANIMALS</h2>
+        <div class="row container">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <th>Animal</th>
+                    <th>Ranger</th>
+                    <th>Location</th>
+                    <th>Age</th>
+                    <th>Health</th>
+                    <th>LastSeen</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        {{#each animals}}
+                            <td>{{animal_id}}</td>
+                        {{/each}}
+                            <td>{{rangerName}}</td>
+                            <td>{{location}}</td>
+                            <td>{{age}}</td>
+                            <td>{{health}}</td>
+                            <td>{{time}}</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
     <!--home section ends-->
 {{/partial}}
 

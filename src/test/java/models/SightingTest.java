@@ -46,15 +46,6 @@ public class SightingTest {
     }
 
     @Test
-    public void save_instanceOfLastSeen_true(){
-        Sighting sighting = new Sighting(1,"zone A","John");
-        sighting.save();
-        Timestamp timeSighting = Sighting.findById(sighting.getId()).getLastSeen();
-        long rightNow = new Date().getTime();
-        assertEquals(DateFormat.getDateInstance().format(rightNow), DateFormat.getDateInstance().format(timeSighting));
-    }
-
-    @Test
     public void save_assignsIdToObject() {
         Sighting sighting = new Sighting(1,"zone A","John");
         sighting.save();

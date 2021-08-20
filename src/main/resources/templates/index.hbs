@@ -9,9 +9,38 @@
         <div class="image">
             <img src="images/lion3.png" alt="">
         </div>
-
     </section>
     <!--home section ends-->
+    <section>
+        <h2>TRACKED ANIMALS</h2>
+        <div class="row container">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <th>Animal</th>
+                    <th>Ranger</th>
+                    <th>Location</th>
+                    <th>Age</th>
+                    <th>Health</th>
+                    </thead>
+                    <tbody>
+                    {{#each animals}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td>{{age}}</td>
+                            <td>{{age}}</td>
+                            <td>{{name}}</td>
+                            <td>{{rangerName}}</td>
+                            <td><a class="text-danger" href="/animals/{{id}}/delete"><span class="material-icons-outlined">
+                                    delete
+                                </span></a></td>
+                        </tr>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+    </section>
 {{/partial}}
 
 {{> layout.hbs}}
