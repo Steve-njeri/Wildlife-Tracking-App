@@ -72,9 +72,6 @@ public class App {
             String rangerName = request.queryParams("rangerName");
             String location = request.queryParams("location");
             Sighting sighting = new Sighting(animal_id,rangerName,location);
-            System.out.println(animal_id);
-            System.out.println(rangerName);
-            System.out.println(location);
             sighting.save();
             model.put("sightings", sighting);
             return new ModelAndView(model, "sightings.hbs");
@@ -98,9 +95,9 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             int badge_number=Integer.parseInt(request.queryParams("badge_number"));
-            int phone_number=Integer.parseInt(request.queryParams("phone_number"));
-            String email=request.queryParams("email");
-            Ranger ranger = new Ranger(name, badge_number, phone_number, email);
+            Ranger ranger = new Ranger(name, badge_number);
+            System.out.println(name);
+            System.out.println(badge_number);
             ranger.save();
             model.put("rangers", Ranger.all());
             return new ModelAndView(model, "rangers.hbs");

@@ -11,10 +11,9 @@
             <div class="col-md-8">
                 <table class="table table-striped">
                     <thead class="thead-dark">
-                    <th>Animal Name</th>
+                    <th>Animal Id</th>
                     <th>Ranger Name</th>
                     <th>Location Name</th>
-                    <th>LastSeen</th>
                     </thead>
                     <tbody>
                     {{#each sightings}}
@@ -22,7 +21,6 @@
                             <td>{{animal_id}}</td>
                             <td>{{rangerName}}</td>
                             <td>{{location}}</td>
-                            <td>{{time}}</td>
                         </tr>
                     {{/each}}
                 </table>
